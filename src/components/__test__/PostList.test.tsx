@@ -10,13 +10,14 @@ class MockIntersectionObserver {
     observe = jest.fn();
     disconnect = jest.fn();
     unobserve = jest.fn();
-    constructor(callback: any) {
-        callback([{ isIntersecting: true }]);
+    constructor(callback: (entries: IntersectionObserverEntry[]) => void) {
+        callback([{ isIntersecting: true } as IntersectionObserverEntry]);
     }
 }
-window.IntersectionObserver = MockIntersectionObserver as any;
+window.IntersectionObserver = MockIntersectionObserver as unknown as typeof window.IntersectionObserver;
 
 const mockPost = {
+    id: '1',
     name: 'Test Product',
     tagline: 'A cool product',
     thumbnail: { url: 'https://example.com/img.png' },
@@ -25,7 +26,7 @@ const mockPost = {
 
 jest.mock('react-window', () => {
     return {
-        FixedSizeList: ({ children, itemCount }: any) => (
+        FixedSizeList: ({ children, itemCount }: { children: (props: { index: number, style: React.CSSProperties }) => React.ReactNode, itemCount: number }) => (
             <div>
                 {Array.from({ length: itemCount }, (_, index) =>
                     <div key={index}>{children({ index, style: {} })}</div>
@@ -45,7 +46,7 @@ describe('PostList', () => {
             hasNextPage: true,
         })
 
-        render(<PostList orderBy="VOTES" />)
+        render(<PostList orderBy="VOTES" onItemClick={() => {}} />)
         expect(screen.getAllByTestId('loading-skeleton')).toHaveLength(5)
     })
 
@@ -58,7 +59,7 @@ describe('PostList', () => {
             hasNextPage: false,
         })
 
-        render(<PostList orderBy="VOTES" />)
+        render(<PostList orderBy="VOTES" onItemClick={() => {}} />)
         expect(screen.getByText(/Error fetching posts/i)).toBeInTheDocument()
         expect(screen.getByText(/Failed to fetch/i)).toBeInTheDocument()
     })
@@ -72,7 +73,7 @@ describe('PostList', () => {
             hasNextPage: true,
         })
 
-        render(<PostList orderBy="NEWEST" />)
+        render(<PostList orderBy="NEWEST" onItemClick={() => {}} />)
 
         await waitFor(() => {
             expect(screen.getByText('Test Product')).toBeInTheDocument()
@@ -91,7 +92,7 @@ describe('PostList', () => {
             hasNextPage: true,
         })
 
-        render(<PostList orderBy="VOTES" />)
+        render(<PostList orderBy="VOTES" onItemClick={() => {}} />)
 
         expect(loadMoreMock).toHaveBeenCalled()
     })

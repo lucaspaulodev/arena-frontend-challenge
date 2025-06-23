@@ -20,6 +20,7 @@ describe('PostListItem', () => {
         style={{}}
         posts={[mockPost]}
         lastPostElementRef={mockRef}
+        onItemClick={jest.fn()}
       />
     );
     expect(screen.getByText('Mock Post')).toBeInTheDocument();
