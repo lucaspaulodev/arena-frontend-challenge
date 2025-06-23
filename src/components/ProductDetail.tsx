@@ -21,15 +21,22 @@ const ProductDetail: React.FC<ProductDetailModalProps> = ({ post, isOpen, onClos
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-lg w-full p-0 bg-[var(--ph-light)] rounded-2xl shadow-xl border-none">
+      <DialogContent 
+        className="max-w-lg w-full p-0 bg-[var(--ph-light)] rounded-2xl shadow-xl border-none"
+        aria-describedby="product-description"
+      >
         <div className="relative p-6">
           {loading && <p className="text-center text-muted-foreground py-8">Loading...</p>}
           {error && <p className="text-center text-destructive py-8">Error: {error.message}</p>}
           {postDetails && (
             <>
               <DialogHeader className="mb-4">
-                <DialogTitle className="text-2xl font-extrabold text-[var(--ph-dark)] mb-1">{postDetails.name}</DialogTitle>
-                <DialogDescription className="text-lg text-muted-foreground mb-2">{postDetails.tagline}</DialogDescription>
+                <DialogTitle className="text-2xl font-extrabold text-[var(--ph-dark)] mb-1">
+                  {postDetails.name}
+                </DialogTitle>
+                <DialogDescription id="product-description" className="text-lg text-muted-foreground mb-2">
+                  {postDetails.tagline}
+                </DialogDescription>
               </DialogHeader>
               <div className="mb-4">
                 <p className="text-base text-[var(--ph-dark)] leading-relaxed mb-4">{postDetails.description}</p>

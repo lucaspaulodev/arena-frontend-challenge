@@ -7,6 +7,7 @@ import type { Post } from '@/types';
 interface PostListProps {
     orderBy: 'VOTES' | 'NEWEST';
     onItemClick: (product: Post) => void;
+    date?: Date;
 }
 
 export const PostListItem = ({
@@ -38,8 +39,8 @@ export const PostListItem = ({
   );
 };
 
-function PostList({ orderBy, onItemClick }: PostListProps) {
-    const { posts, loading, error, loadMore, hasNextPage } = usePosts(orderBy);
+function PostList({ orderBy, onItemClick, date }: PostListProps) {
+    const { posts, loading, error, loadMore, hasNextPage } = usePosts(orderBy, date);
     
     const observer = useRef<IntersectionObserver | null>(null);
 

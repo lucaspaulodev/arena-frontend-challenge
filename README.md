@@ -13,6 +13,7 @@ A modern React + TypeScript application inspired by Product Hunt, built with Vit
 - **ShadcnUI**: Accessible, composable UI primitives.
 - **Infinite Scrolling**: Efficiently loads more posts as you scroll.
 - **Tabbed Navigation**: Switch between "Most Popular" and "Most Recent" posts.
+- **DatePicker**: Filter recent posts by specific dates with a modern calendar interface.
 - **Component-based Architecture**: Reusable UI and logic.
 - **Testing**: Jest and React Testing Library setup.
 
@@ -51,6 +52,7 @@ VITE_PRODUCT_HUNT_TOKEN=your_product_hunt_api_token
 - `pnpm build` – Build for production
 - `pnpm preview` – Preview the production build
 - `pnpm lint` – Run ESLint
+- `pnpm test` – Run tests
 
 ---
 
@@ -62,7 +64,9 @@ src/
   components/
     PostList.tsx         # Infinite scrolling list of posts
     Product.tsx          # Product card component
-    ui/                  # Reusable UI primitives (button, tabs)
+    DatePicker.tsx       # Date selection component for filtering
+    ProductDetail.tsx    # Modal for detailed product information
+    ui/                  # Reusable UI primitives (button, tabs, calendar, popover)
   graphql/
     apolloClient.ts      # Apollo Client setup
     queries.ts           # GraphQL queries
@@ -80,6 +84,7 @@ src/
 
 - **Apollo Client** connects to the Product Hunt GraphQL API using a bearer token.
 - **Tabs** let users switch between "Most Popular" and "Most Recent" posts.
+- **DatePicker** appears when "Most Recent" tab is selected, allowing users to filter posts by specific dates.
 - **PostList** fetches posts using the `usePosts` hook and displays them with infinite scroll (using `react-window` for performance).
 - **ProductCard** shows each product's name, tagline, thumbnail, and vote count.
 - **ProductDetail Modal**: Clicking on a product opens a modal displaying detailed information about the selected product.

@@ -85,7 +85,7 @@ describe('ProductDetail Modal', () => {
         <ProductDetail post={null} isOpen={true} onClose={jest.fn()} />
       </MockedProvider>
     );
-    // Should not show any product details
+
     expect(screen.queryByText('Mock Product')).not.toBeInTheDocument();
   });
 }); 
