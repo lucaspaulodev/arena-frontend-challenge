@@ -7,14 +7,14 @@ interface ProductCardProps {
 
 function ProductCard({ name, tagline, thumbnailUrl, votesCount }: ProductCardProps) {
   return (
-    <div className="border rounded-lg p-4 flex items-center cursor-pointer hover:bg-accent">
-      <img src={thumbnailUrl} alt={name} className="w-20 h-20 mr-4 rounded-md" />
+    <div className="card-ph p-4 flex items-center cursor-pointer">
+      <img src={thumbnailUrl} alt={name} className="w-20 h-20 mr-4 rounded-md border" />
       <div className="flex-grow">
-        <h3 className="text-lg font-bold">{name}</h3>
+        <h3 className="text-lg font-bold text-[var(--ph-dark)]">{name}</h3>
         <p className="text-muted-foreground">{tagline}</p>
       </div>
       <div className="text-center ml-4">
-        <div className="text-2xl font-bold">{votesCount}</div>
+        <div className="text-2xl font-bold ph-orange text-[var(--ph-orange)]">{votesCount}</div>
         <div className="text-sm text-muted-foreground">VOTES</div>
       </div>
     </div>

@@ -109,6 +109,12 @@
     --ring: 222.2 84% 4.9%;
  
     --radius: 0.5rem;
+
+    --ph-orange: #ff6154;
+    --ph-dark: #181a20;
+    --ph-light: #fff8f2;
+    --ph-gray: #e4e6e8;
+    --ph-accent: #fecd51;
   }
  
   .dark {
@@ -148,5 +154,127 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    letter-spacing: -0.01em;
   }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 700;
+  }
+}
+
+.card-ph {
+  background: var(--ph-light);
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px 0 rgba(24,26,32,0.08);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.card-ph:hover {
+  box-shadow: 0 8px 32px 0 rgba(255,97,84,0.18);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-ph {
+  background: var(--ph-orange);
+  color: white;
+  border-radius: 999px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.btn-ph:hover {
+  background: #ff3c1a;
+}
+
+.skeleton-ph {
+  background: var(--ph-gray);
+  border-radius: 0.5rem;
+  min-height: 80px;
+  width: 100%;
+  animation: skeleton-ph-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes skeleton-ph-pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.react-window__outer, .react-window__inner, .post-list-scroll, .ReactVirtualized__Grid, .ReactVirtualized__List, .ReactVirtualized__Grid__innerScrollContainer {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ph-gray) var(--ph-light);
+}
+
+.react-window__outer, .post-list-scroll, .ReactVirtualized__Grid {
+  overflow-x: hidden !important;
+}
+
+.react-window__outer::-webkit-scrollbar,
+.post-list-scroll::-webkit-scrollbar {
+  width: 8px;
+  background: var(--ph-light);
+}
+.react-window__outer::-webkit-scrollbar-thumb,
+.post-list-scroll::-webkit-scrollbar-thumb {
+  background: var(--ph-gray);
+  border-radius: 8px;
+}
+.react-window__outer::-webkit-scrollbar-thumb:hover,
+.post-list-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--ph-orange);
+}
+
+.react-window__outer::-webkit-scrollbar:horizontal,
+.post-list-scroll::-webkit-scrollbar:horizontal {
+  display: none;
+}
+
+.app-bg {
+  background: var(--ph-light);
+}
+
+.ph-header {
+  box-shadow: 0 2px 8px 0 rgba(24,26,32,0.04);
+}
+
+.ph-tabs-list {
+  background: var(--ph-gray) !important;
+  border-radius: 999px !important;
+  padding: 4px !important;
+  gap: 4px;
+  margin-left: 0;
+  margin-right: auto;
+  display: flex;
+  width: fit-content;
+}
+
+.ph-tabs-list [data-slot='tabs-trigger'] {
+  border-radius: 999px !important;
+  padding: 0.5rem 1.5rem !important;
+  font-weight: 600;
+  color: var(--ph-dark);
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+}
+
+.ph-tabs-list [data-slot='tabs-trigger'][data-state='active'] {
+  background: var(--ph-orange) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px 0 rgba(255,97,84,0.10);
+}
+
+.ph-footer {
+  background: transparent;
+  color: var(--ph-gray);
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.card-ph {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
 }

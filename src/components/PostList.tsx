@@ -27,7 +27,13 @@ function PostList({ orderBy }: PostListProps) {
     );
 
     if (loading && posts.length === 0) {
-        return <p>Loading...</p>;
+        return (
+            <div style={{ padding: '2rem' }}>
+                {[...Array(5)].map((_, i) => (
+                    <div key={i} className="skeleton-ph mb-4" />
+                ))}
+            </div>
+        );
     }
 
     if (error) {
@@ -38,7 +44,7 @@ function PostList({ orderBy }: PostListProps) {
         const post = posts[index];
         const isLastElement = index === posts.length - 1;
         return (
-            <div style={style} ref={isLastElement ? lastPostElementRef : null}>
+            <div style={{...style, width: '90%', justifySelf: 'anchor-center'}} ref={isLastElement ? lastPostElementRef : null}>
                 <ProductCard
                     name={post.name}
                     tagline={post.tagline}
@@ -50,7 +56,7 @@ function PostList({ orderBy }: PostListProps) {
     }
 
     return (
-        <List height={600} itemCount={posts.length} itemSize={120} width={'100%'}>
+        <List height={600} itemCount={posts.length} itemSize={140} width={'100%'} className="react-window__outer">
             {Item}
         </List>
     )
