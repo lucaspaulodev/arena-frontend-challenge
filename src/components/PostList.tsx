@@ -2,10 +2,36 @@ import { usePosts } from '@/hooks/usePosts'
 import { useCallback, useRef } from 'react';
 import { FixedSizeList as List } from 'react-window'
 import ProductCard from './Product';
+import type { Post } from '@/types';
 
 interface PostListProps {
     orderBy: 'VOTES' | 'NEWEST';
 }
+
+export const PostListItem = ({
+  index,
+  style,
+  posts,
+  lastPostElementRef
+}: {
+  index: number;
+  style: React.CSSProperties;
+  posts: Post[];
+  lastPostElementRef: (node: HTMLDivElement) => void;
+}) => {
+  const post = posts[index];
+  const isLastElement = index === posts.length - 1;
+  return (
+    <div style={{ ...style, width: '90%', justifySelf: 'anchor-center' }} ref={isLastElement ? lastPostElementRef : null}>
+      <ProductCard
+        name={post.name}
+        tagline={post.tagline}
+        thumbnailUrl={post.thumbnail.url}
+        votesCount={post.votesCount}
+      />
+    </div>
+  );
+};
 
 function PostList({ orderBy }: PostListProps) {
     const { posts, loading, error, loadMore, hasNextPage } = usePosts(orderBy);
@@ -30,7 +56,7 @@ function PostList({ orderBy }: PostListProps) {
         return (
             <div style={{ padding: '2rem' }}>
                 {[...Array(5)].map((_, i) => (
-                    <div key={i} className="skeleton-ph mb-4" />
+                    <div data-testid="loading-skeleton" key={i} className="skeleton-ph mb-4" />
                 ))}
             </div>
         );
@@ -40,20 +66,14 @@ function PostList({ orderBy }: PostListProps) {
         return <p>Error fetching posts: {error.message}</p>;
     }
 
-    const Item = ({ index, style }: { index: number, style: React.CSSProperties }) => {
-        const post = posts[index];
-        const isLastElement = index === posts.length - 1;
-        return (
-            <div style={{...style, width: '90%', justifySelf: 'anchor-center'}} ref={isLastElement ? lastPostElementRef : null}>
-                <ProductCard
-                    name={post.name}
-                    tagline={post.tagline}
-                    thumbnailUrl={post.thumbnail.url}
-                    votesCount={post.votesCount}
-                />
-            </div>
-        );
-    }
+    const Item = ({ index, style }: { index: number, style: React.CSSProperties }) => (
+      <PostListItem
+        index={index}
+        style={style}
+        posts={posts}
+        lastPostElementRef={lastPostElementRef}
+      />
+    );
 
     return (
         <List height={600} itemCount={posts.length} itemSize={140} width={'100%'} className="react-window__outer">
