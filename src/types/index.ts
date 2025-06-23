@@ -10,11 +10,6 @@ export interface TopicEdge {
     node: TopicNode;
 }
 
-export interface Maker {
-    name: string;
-    profileImage: string;
-}
-
 export interface Post {
     id: string;
     name: string;
@@ -26,7 +21,6 @@ export interface Post {
     topics?: {
         edges: TopicEdge[];
     };
-    makers?: Maker[];
 }
 
 export interface PageInfo {
@@ -45,6 +39,10 @@ export interface PostsData {
         pageInfo: PageInfo;
     };
 }
+
+export interface PostDetailsData {
+    post: Post;
+  }
 
 
 

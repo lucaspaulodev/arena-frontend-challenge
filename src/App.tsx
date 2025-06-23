@@ -4,9 +4,24 @@ import PostList from './components/PostList'
 
 import './App.css'
 import './index.css'
+import ProductDetail from './components/ProductDetail';
+import type { Post } from './types';
 
 function App() {
   const [tab, setTab] = useState('popular');
+  const [selectedProduct, setSelectedProduct] = useState<Post | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleProductClick = (product: Post) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
+
   return (
     <div className="app-bg min-h-screen flex flex-col">
       <header className="top-0 z-10 w-full backdrop-blur py-4 mb-2">
@@ -23,12 +38,13 @@ function App() {
         </div>
       </header>
       <div className="container mx-auto px-4 max-w-2xl w-full">
-        {tab === 'popular' && <PostList orderBy='VOTES' />}
-        {tab === 'recent' && <PostList orderBy='NEWEST' />}
+        {tab === 'popular' && <PostList orderBy='VOTES' onItemClick={handleProductClick}/>}
+        {tab === 'recent' && <PostList orderBy='NEWEST' onItemClick={handleProductClick}/>}
       </div>
       <footer className="ph-footer text-center py-4 text-sm text-[var(--ph-gray)] bg-transparent mt-8">
         <span>Inspired by Product Hunt &middot; Arena Challenge</span>
       </footer>
+      <ProductDetail post={selectedProduct} isOpen={isModalOpen} onClose={closeModal} />
     </div>
   )
 }

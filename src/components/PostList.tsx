@@ -6,18 +6,22 @@ import type { Post } from '@/types';
 
 interface PostListProps {
     orderBy: 'VOTES' | 'NEWEST';
+    onItemClick: (product: Post) => void;
 }
 
 export const PostListItem = ({
   index,
   style,
   posts,
-  lastPostElementRef
+  lastPostElementRef,
+  onItemClick
+  
 }: {
   index: number;
   style: React.CSSProperties;
   posts: Post[];
   lastPostElementRef: (node: HTMLDivElement) => void;
+  onItemClick: (product: Post) => void;
 }) => {
   const post = posts[index];
   const isLastElement = index === posts.length - 1;
@@ -28,12 +32,13 @@ export const PostListItem = ({
         tagline={post.tagline}
         thumbnailUrl={post.thumbnail.url}
         votesCount={post.votesCount}
+        onItemClick={() => onItemClick(post)}
       />
     </div>
   );
 };
 
-function PostList({ orderBy }: PostListProps) {
+function PostList({ orderBy, onItemClick }: PostListProps) {
     const { posts, loading, error, loadMore, hasNextPage } = usePosts(orderBy);
     
     const observer = useRef<IntersectionObserver | null>(null);
@@ -72,6 +77,7 @@ function PostList({ orderBy }: PostListProps) {
         style={style}
         posts={posts}
         lastPostElementRef={lastPostElementRef}
+        onItemClick={onItemClick}
       />
     );
 

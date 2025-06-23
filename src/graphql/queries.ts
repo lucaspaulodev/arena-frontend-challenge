@@ -38,33 +38,29 @@ export const GET_POST_DETAILS = gql`
           }
         }
       }
-      makers {
-        name
-        profileImage
-      }
     }
   }
 `;
 
-export const SEARCH_POSTS = gql`
-  query SearchPosts($query: String!, $first: Int, $after: String, $postedBefore: DateTime, $postedAfter: DateTime) {
-    posts(search: $query, first: $first, after: $after, postedBefore: $postedBefore, postedAfter: $postedAfter) {
-      edges {
-        cursor
-        node {
-          id
-          name
-          tagline
-          thumbnail {
-            url
-          }
-          votesCount
-        }
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
-    }
-  }
-`;
+// export const SEARCH_POSTS = gql`
+//   query SearchPosts($query: String!, $first: Int, $after: String, $postedBefore: DateTime, $postedAfter: DateTime) {
+//     posts(search: $query, first: $first, after: $after, postedBefore: $postedBefore, postedAfter: $postedAfter) {
+//       edges {
+//         cursor
+//         node {
+//           id
+//           name
+//           tagline
+//           thumbnail {
+//             url
+//           }
+//           votesCount
+//         }
+//       }
+//       pageInfo {
+//         endCursor
+//         hasNextPage
+//       }
+//     }
+//   }
+// `;
