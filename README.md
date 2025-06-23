@@ -82,6 +82,7 @@ src/
 - **Tabs** let users switch between "Most Popular" and "Most Recent" posts.
 - **PostList** fetches posts using the `usePosts` hook and displays them with infinite scroll (using `react-window` for performance).
 - **ProductCard** shows each product's name, tagline, thumbnail, and vote count.
+- **ProductDetail Modal**: Clicking on a product opens a modal displaying detailed information about the selected product.
 
 ---
 
