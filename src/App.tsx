@@ -1,5 +1,7 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs'
+import PostList from './components/PostList'
+
 import './App.css'
-import { Tabs, TabsList, TabsTrigger } from './components/ui/tabs'
 
 function App() {
   return (
@@ -10,6 +12,12 @@ function App() {
           <TabsTrigger value="popular">Most Popular</TabsTrigger>
           <TabsTrigger value="recent">Most Recent</TabsTrigger>
         </TabsList>
+        <TabsContent value="popular">
+          <PostList orderBy='VOTES'/>
+        </TabsContent>
+        <TabsContent value="recent">
+          <PostList orderBy='NEWEST'/>
+        </TabsContent>
       </Tabs>
     </div>
   )
